@@ -8,7 +8,8 @@ var router = express.Router();
 
 router.get('/', (req,res)=>{
     res.render('employee/addOrEdit', {
-        viewTitle : "Add Employee"
+        viewTitle : "Add Employee",
+        btnText : "Create New Employee"
     });
 });
 
@@ -27,7 +28,10 @@ function insertRecord(req,res){
     employee.fullname = req.body.fullname;
     employee.email =  req.body.email;
     employee.mobile = req.body.mobile;
+    employee.address = req.body.address;
     employee.city = req.body.city;
+    employee.state = req.body.state;
+    employee.gender = req.body.gender;
     employee.save((err, doc)=>{
         if(!err){
             res.redirect('employee/list')
@@ -80,6 +84,7 @@ router.get('/:id',(req,res)=>{
         if(!err){
             res.render('employee/addOrEdit', {
                 viewTitle : "Update Employee Record",
+                btnText : "Update",
                 employee: doc
             });
         }
