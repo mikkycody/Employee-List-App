@@ -1,0 +1,11 @@
+<h3>{{viewTitle}}</h3>
+
+<form autocomplete="off" action="/employee" method="post">
+    <input placeholder="Fullname" type="text" name="fullname" id="" value="{{employee.fullName}}">
+    {{employee.fullNameError}}
+    <input placeholder="Email" type="email" name="email" id="" value="{{employee.email}}">
+    {{employee.emailError}}
+    <input placeholder="Mobile Number" type="tel" name="mobile" id="" value="{{employee.mobile}}">
+    <input placeholder="City" type="text" name="city" id="" value="{{employee.city}}">
+    <button type="submit">Submit</button>
+</form>
