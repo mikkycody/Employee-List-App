@@ -1,11 +1,13 @@
 <h3>{{viewTitle}}</h3>
 
 <form autocomplete="off" action="/employee" method="post">
-    <input placeholder="Fullname" type="text" name="fullname" id="" value="{{employee.fullName}}">
+<input type="hidden" name="_id" value="{{employee.id}}">
+    <input placeholder="Fullname" type="text" name="fullname" id="" value="{{employee.fullname}}">
     {{employee.fullNameError}}
     <input placeholder="Email" type="email" name="email" id="" value="{{employee.email}}">
     {{employee.emailError}}
     <input placeholder="Mobile Number" type="tel" name="mobile" id="" value="{{employee.mobile}}">
     <input placeholder="City" type="text" name="city" id="" value="{{employee.city}}">
     <button type="submit">Submit</button>
+    <a href="/employee/list">View All</a>
 </form>

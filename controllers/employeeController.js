@@ -13,7 +13,13 @@ router.get('/', (req,res)=>{
 });
 
 router.post('/',(req,res)=>{
-    insertRecord(req,res);
+    if(req.body._id == ""){
+        insertRecord(req,res);
+
+    }
+    else{
+        updateRecord(req,res);
+    }
 })
 
 function insertRecord(req,res){
@@ -38,8 +44,18 @@ function insertRecord(req,res){
     });
 }
 
+function updateRecord(req,res){
+    Employee.findOneAndUpdate({_id: req.body._id}, req.body, {new:true},(err, doc)=>{
+        if(!err){
+            res.redirect('employee/list')
+        }else{
+            console.log('Error:' + err)
+        }
+        
+    })
+}
+
 router.get('/list',(req,res)=>{
-    res.json('From LIst');
     Employee.find((err, docs)=>{
         if(!err){
             res.render('employee/list', {
@@ -50,7 +66,25 @@ router.get('/list',(req,res)=>{
         }
     })
 })
-
+router.get('/delete/:id', (req, res)=>{
+    Employee.findByIdAndRemove(req.params.id, (err, doc)=>{
+        if(!err){
+            res.redirect('/employee/list')
+        }else{
+            console.log('Error :' +err)
+        }
+    });
+})
+router.get('/:id',(req,res)=>{
+    Employee.findById(req.params.id, (err,doc)=>{
+        if(!err){
+            res.render('employee/addOrEdit', {
+                viewTitle : "Update Employee Record",
+                employee: doc
+            });
+        }
+    })
+});
 // function handleValidationError(err, body){
 //     for(field in err.errors){
 //         switch(err.errors[field].path){
